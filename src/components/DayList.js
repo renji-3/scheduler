@@ -9,8 +9,8 @@ const dayMap = props.days.map((day) => {
       key={day.id}
       name={day.name} 
       spots={day.spots} 
-      selected={day.name === props.day}
-      setDay={props.setDay}  
+      selected={day.name === props.value}
+      setDay={props.onChange}  
     />)
   })
 
