@@ -22,3 +22,7 @@ export function getAppointmentsForDay(state, day) {
   
   return filteredApts
 }
+
+export function getInterview (state, interview) {
+  
+}
