@@ -3,7 +3,7 @@ import axios from "axios";
 import "components/Application.scss";
 import DayList from "components/DayList"
 import Appointment from "./Appointment";
-import { getAppointmentsForDay, getInterview } from "Helpers/selectors";
+import { getAppointmentsForDay, getInterview, getInterviewersForDay } from "Helpers/selectors";
 
 
 
@@ -16,6 +16,7 @@ export default function Application(props) {
   });
 
   const dailyAppointments = getAppointmentsForDay(state, state.day)
+  const interviewers = getInterviewersForDay(state, state.day)
   
   const setDay = day => setState(
     { ...state, day }
@@ -29,6 +30,7 @@ export default function Application(props) {
       id={apt.id}
       time={apt.time}
       interview={interview}
+      interviewers={interviewers}
     />
     );
   });
