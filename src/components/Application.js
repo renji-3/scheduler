@@ -44,8 +44,6 @@ export default function Application(props) {
     })
   }, [])
 
-  console.log('-------------------', state.interviewers)
-
   return (
     <main className="layout">
       <section className="sidebar">
