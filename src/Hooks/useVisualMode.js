@@ -5,6 +5,7 @@ export default function useVisualMode(initial) {
   const [history, setHistory] = useState([initial]);
 
   function transition(newMode, replace = false) {
+    console.log(newMode)
     setMode(newMode)
     if (replace) {
       setHistory((prev) => [...prev.slice(0, prev.length - 1), newMode])
@@ -21,7 +22,11 @@ export default function useVisualMode(initial) {
     setHistory((prev) => [...prev.slice(0, history.length - 1)])
   }
 
-  return { mode: history[history.length - 1], transition, back };
+  function editInterview() {
+    console.log('edit')
+  }
+
+  return { mode: history[history.length - 1], transition, back, editInterview };
 
 
 
