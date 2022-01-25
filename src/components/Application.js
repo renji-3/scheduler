@@ -47,9 +47,6 @@ export default function Application(props) {
   }
 
   function removeInterview(id) {
-    console.log('delete')
-    //needs to somehow use a promise in order to remove booking so promise can be used later
-    //why cant it be passed as props like book
 
     const appointment = {
       ...state.appointments[id],
@@ -70,7 +67,6 @@ export default function Application(props) {
     })
 
   }
-
 
   function editInterview() {
     console.log('edit')

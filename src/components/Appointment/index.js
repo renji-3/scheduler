@@ -14,6 +14,9 @@ export default function Appointment(props) {
   const CREATE = 'CREATE';
   const SAVING = 'SAVE'
   const DELETING = 'DELETING'
+  const EDIT = 'EDIT'
+  const ERROR_SAVE = 'ERROR_SAVE'
+  const ERROR_DELETE = 'ERROR_DELETE'
 
 
   const { mode, transition, back } = useVisualMode(
@@ -29,29 +32,56 @@ export default function Appointment(props) {
     props.bookInterview(props.id, interview).then(() => {
       transition(SHOW)
     })
+    .catch (() => {
+      transition(ERROR_SAVE)
+    })
   }
 
   function deleteIcon() {
    props.removeInterview(props.id, transition(DELETING)).then(() => {
       transition(EMPTY)
     })
+    .catch (() => {
+      transition(ERROR_DELETE)
+    })
+  }
+
+  function editIcon() {
+    transition(EDIT)
   }
 
   return (
     <article className="appointment">
       <Header time={props.time} />
       {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
-      {mode === SHOW && (
+      {mode === SHOW && 
         <Show
           student={props.interview.student}
           interviewer={props.interview.interviewer}
           onDelete={deleteIcon}
-          onEdit={props.editInterview}
+          onEdit={editIcon}
         />
-      )}
-      {mode === CREATE && <Form student="" interviewer={null} interviewers={props.interviewers} onSave={save} onCancel={back} />}
+      }
+      {mode === CREATE && 
+          <Form 
+          student="" 
+          interviewer={null} 
+          interviewers={props.interviewers} 
+          onSave={save} 
+          onCancel={back} 
+      />}
       {mode === SAVING && <Status message="Saving"/>}
       {mode === DELETING && <Status message="Deleting"/>}
+      {mode === EDIT && 
+            <Form 
+            student={props.interview.student} 
+            interviewer={props.interview.interviewer.id}
+            interviewers={props.interviewers} 
+            onSave={save} 
+            onCancel={back}
+      />}
+      {mode === ERROR_SAVE && <Status message="Error Saving Appointment"/>}
+      {mode === ERROR_DELETE && <Status message="Error Deleting Appointment"/>}
     </article>
   );
 }
