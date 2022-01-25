@@ -22,6 +22,60 @@ export default function Application(props) {
     { ...state, day }
   );
 
+  function bookInterview(id, interview) {
+
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview }
+    };
+
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+
+    return axios.put(`/api/appointments/${id}`, {
+      interview
+    })
+    .then(function (response) {
+      setState({
+        ...state,
+        appointments
+      });
+    })
+
+  }
+
+  function removeInterview(id) {
+    console.log('delete')
+    //needs to somehow use a promise in order to remove booking so promise can be used later
+    //why cant it be passed as props like book
+
+    const appointment = {
+      ...state.appointments[id],
+      interview: null
+    };
+
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+    
+    return axios.delete(`/api/appointments/${id}`)
+    .then(function (response) {
+      setState({
+        ...state,
+        appointments
+      });
+    })
+
+  }
+
+
+  function editInterview() {
+    console.log('edit')
+  }
+
   const apts = dailyAppointments.map((apt) => {
     const interview = getInterview(state, apt.interview);
     return (
@@ -31,6 +85,9 @@ export default function Application(props) {
       time={apt.time}
       interview={interview}
       interviewers={interviewers}
+      bookInterview={bookInterview}
+      removeInterview={removeInterview}
+      editInterview={editInterview}
     />
     );
   });
