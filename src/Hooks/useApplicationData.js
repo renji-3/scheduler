@@ -13,22 +13,25 @@ export default function useApplicationData() {
     { ...state, day }
   );
 
-  function weekPick(id) {
-    if (id < 6) {
-      return 0
+  function updateSpots(type) {
+  
+    const currentDayIndex = state.days.findIndex((day) => {
+      return day.name === state.day
+    })
+
+    const clonedDays = JSON.parse(JSON.stringify(state.days))
+
+    console.log('before', state.days)
+
+    if (type === 'bookInterview') {
+      clonedDays[currentDayIndex].spots -= 1
+    } else {
+      clonedDays[currentDayIndex].spots += 1
     }
-    if (id < 11) {
-      return 1
-    }
-    if (id < 16) {
-      return 2
-    }
-    if (id < 21) {
-      return 3
-    }
-    if (id < 25) {
-      return 4
-    }
+
+    console.log('after', clonedDays)
+    return clonedDays
+    
   }
 
   function bookInterview(id, interview) {
@@ -49,19 +52,10 @@ export default function useApplicationData() {
     .then(function (response) {
       setState({
         ...state,
-        appointments
+        appointments,
+        days: updateSpots('bookInterview')
       });
     })
-    .then(function (response) {
-      let clone = [...state.days]
-      // console.log (state.days[weekPick(id)].spots - 1)
-      console.log(clone[weekPick(id)].spots - 1)
-    }
-    )
-
-    //clone days
-    //update spots
-    //setstate with prev and only update days
 
   }
 
@@ -81,7 +75,8 @@ export default function useApplicationData() {
     .then(function (response) {
       setState({
         ...state,
-        appointments
+        appointments,
+        days: updateSpots('removeInterview')
       });
     })
 
