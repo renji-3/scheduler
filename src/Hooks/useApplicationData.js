@@ -45,7 +45,7 @@ export default function useApplicationData() {
         }
       }
     }
-    console.log('LOOK HERE ==>', {testDays, currentDay, cloneDays})
+    console.log('LOOK HERE ==>', {testDays, currentDay, clonedDays})
 
     console.log('before', state.days)
 
