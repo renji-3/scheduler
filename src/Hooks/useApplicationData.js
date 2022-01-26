@@ -25,8 +25,11 @@ export default function useApplicationData() {
 
     if (type === 'bookInterview') {
       clonedDays[currentDayIndex].spots -= 1
+    } else if 
+       (type === 'removeInterview') {
+        clonedDays[currentDayIndex].spots += 1
     } else {
-      clonedDays[currentDayIndex].spots += 1
+        clonedDays[currentDayIndex].spots += 0
     }
 
     console.log('after', clonedDays)
@@ -79,8 +82,9 @@ export default function useApplicationData() {
         days: updateSpots('removeInterview')
       });
     })
-
   }
+
+  //edit affects counter
 
   useEffect(() => {
     Promise.all([

@@ -49,10 +49,8 @@ export default function Appointment(props) {
       transition(ERROR_DELETE, true)
     })
   }
-
-  function editInterview() {
-    transition(EDIT)
-  }
+   
+  
 
   return (
     <article className="appointment">
@@ -63,7 +61,7 @@ export default function Appointment(props) {
           student={props.interview.student}
           interviewer={props.interview.interviewer}
           onDelete={() => transition(CONFIRM)}
-          onEdit={editInterview}
+          onEdit={() => transition(EDIT)}
         />
       }
       {mode === CREATE && 
