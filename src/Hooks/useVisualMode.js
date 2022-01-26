@@ -22,12 +22,6 @@ export default function useVisualMode(initial) {
     setHistory((prev) => [...prev.slice(0, history.length - 1)])
   }
 
-  function editInterview() {
-    console.log('edit')
-  }
 
-  return { mode: history[history.length - 1], transition, back, editInterview };
-
-
-
+  return { mode: history[history.length - 1], transition, back };
 }

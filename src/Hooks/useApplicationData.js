@@ -13,29 +13,60 @@ export default function useApplicationData() {
     { ...state, day }
   );
 
+  //----------------------------------------------------------------
+
   function updateSpots(type) {
   
     const currentDayIndex = state.days.findIndex((day) => {
       return day.name === state.day
     })
 
-    const clonedDays = JSON.parse(JSON.stringify(state.days))
+    const currentDay = state.days[currentDayIndex]
 
-    console.log('before', state.days)
+    const clonedDays = JSON.parse(JSON.stringify(state.days))
+    let currentDayOldSpots = 0;
 
     if (type === 'bookInterview') {
+      currentDayOldSpots--
       clonedDays[currentDayIndex].spots -= 1
     } else if 
        (type === 'removeInterview') {
+        currentDayOldSpots++
         clonedDays[currentDayIndex].spots += 1
-    } else {
-        clonedDays[currentDayIndex].spots += 0
+    } 
+
+    const testDays = {
+      ...state,
+      days: {
+        ...state.days,
+        [currentDay]: {
+          ...state.days[currentDayIndex],
+          spots: currentDayOldSpots
+        }
+      }
     }
+    console.log('LOOK HERE ==>', {testDays, currentDay, cloneDays})
+
+    console.log('before', state.days)
+
+    // if (type === 'bookInterview') {
+    //   clonedDays[currentDayIndex].spots -= 1
+    // } else if 
+    //    (type === 'removeInterview') {
+    //     clonedDays[currentDayIndex].spots += 1
+    // } 
+
+
+    //else {
+    //     clonedDays[currentDayIndex].spots += 0
+    // }
 
     console.log('after', clonedDays)
     return clonedDays
     
   }
+
+  //----------------------------------------------------------------
 
   function bookInterview(id, interview) {
 
@@ -48,6 +79,8 @@ export default function useApplicationData() {
       ...state.appointments,
       [id]: appointment
     };
+    const clonedDays =  updateSpots('bookInterview')
+    console.log({clonedDays, stateDays: state.days});
 
     return axios.put(`/api/appointments/${id}`, {
       interview
@@ -56,12 +89,14 @@ export default function useApplicationData() {
       setState({
         ...state,
         appointments,
-        days: updateSpots('bookInterview')
+        days: clonedDays
       });
     })
 
   }
 
+//----------------------------------------------------------------
+  
   function removeInterview(id) {
 
     const appointment = {
@@ -84,7 +119,38 @@ export default function useApplicationData() {
     })
   }
 
-  //edit affects counter
+  //----------------------------------------------------------------
+
+  //thinking of doing an editInterview function that exists just to make sure updateSpots isnt called
+  //changing the updateSpots parameter to anything but book or remove causes it to not effect spots
+  //this idea SHOULD work
+
+  // function editInterview (id, interview) {
+  //   const appointment = {
+  //     ...state.appointments[id],
+  //     interview: { ...interview }
+  //   };
+
+  //   const appointments = {
+  //     ...state.appointments,
+  //     [id]: appointment
+  //   };
+
+  //   const newDays = updateSpots();
+  //   console.log({newDays})
+  //   return axios.put(`/api/appointments/${id}`, {
+  //     interview
+  //   })
+  //   .then(function (response) {
+  //     setState({
+  //       ...state,
+  //       appointments,
+  //       days: newDays
+  //     });
+  //   })
+  // }
+
+  //----------------------------------------------------------------
 
   useEffect(() => {
     Promise.all([
@@ -97,8 +163,12 @@ export default function useApplicationData() {
     })
   }, [])
 
-  return{state, setDay, bookInterview, removeInterview}
-
-
-
+  return {
+     state,
+     setDay,
+     bookInterview,
+     removeInterview,
+    //  editInterview,
+     updateSpots
+  };
 }

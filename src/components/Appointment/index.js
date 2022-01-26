@@ -26,6 +26,8 @@ export default function Appointment(props) {
     props.interview ? SHOW : EMPTY
   );
 
+  //----------------------------------------------------------------
+
   function save(name, interviewer) {
     const interview = {
       student: name,
@@ -39,6 +41,7 @@ export default function Appointment(props) {
       transition(ERROR_SAVE, true)
     })
   }
+  //----------------------------------------------------------------
 
   function deleteInterview() {
    props.removeInterview(props.id, transition(DELETING, true))
@@ -49,9 +52,21 @@ export default function Appointment(props) {
       transition(ERROR_DELETE, true)
     })
   }
-   
-  
 
+  //----------------------------------------------------------------
+
+  // function editInt(name, interviewer) {
+  //   const interview = {
+  //     student: name,
+  //     interviewer
+  //   };
+  //   props.editInterview(props.id, interview).then(() => {
+      
+  //   })
+  // }
+
+  //----------------------------------------------------------------
+   
   return (
     <article className="appointment">
       <Header time={props.time} />

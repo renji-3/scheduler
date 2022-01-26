@@ -4,7 +4,6 @@ import DayList from "components/DayList"
 import Appointment from "./Appointment";
 import { getAppointmentsForDay, getInterview, getInterviewersForDay } from "Helpers/selectors";
 import useApplicationData from "Hooks/useApplicationData";
-import useVisualMode from "Hooks/useVisualMode";
 
 
 export default function Application(props) {
@@ -12,12 +11,8 @@ export default function Application(props) {
     state,
     setDay,
     bookInterview,
-    removeInterview,
+    removeInterview
   } = useApplicationData();
-
-  const {
-    editInterview
-  } = useVisualMode()
 
   const dailyAppointments = getAppointmentsForDay(state, state.day)
   const interviewers = getInterviewersForDay(state, state.day)
@@ -34,7 +29,6 @@ export default function Application(props) {
       interviewers={interviewers}
       bookInterview={bookInterview}
       removeInterview={removeInterview}
-      editInterview={editInterview}
     />
     );
   });
