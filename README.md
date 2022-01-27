@@ -1,5 +1,8 @@
 # Interview Scheduler
 
+## Summary
+This project is a single page web app that demonstrates the ability to create and manage appointments for interviews
+
 ## Setup
 
 Install dependencies with `npm install`.
