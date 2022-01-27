@@ -33,8 +33,9 @@ export default function Appointment(props) {
       student: name,
       interviewer
     };
-
-    if (!interviewer) {
+    
+    //code prevents db crash if interviewer isnt selected - no message attached
+    if (!interviewer) { 
       return;
     }
 

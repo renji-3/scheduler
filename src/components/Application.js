@@ -17,6 +17,7 @@ export default function Application(props) {
   const dailyAppointments = getAppointmentsForDay(state, state.day)
   const interviewers = getInterviewersForDay(state, state.day)
   
+  //----------------------------------------------------------------
 
   const apts = dailyAppointments.map((apt) => {
     const interview = getInterview(state, apt.interview);
@@ -32,6 +33,8 @@ export default function Application(props) {
     />
     );
   });
+
+  //----------------------------------------------------------------
 
   return (
     <main className="layout">

@@ -13,10 +13,14 @@ export default function Form(props) {
     setStudent('')
   };
 
+  //----------------------------------------------------------------
+  
   const cancel = () => {
     reset();
     props.onCancel();
   }
+
+  //----------------------------------------------------------------
 
   function validate() {
     if (student === "") {
@@ -28,6 +32,7 @@ export default function Form(props) {
     props.onSave(student, interviewer);
   }
 
+  //----------------------------------------------------------------
 
   return (
     <main className="appointment__card appointment__card--create">
