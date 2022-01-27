@@ -33,6 +33,11 @@ export default function Appointment(props) {
       student: name,
       interviewer
     };
+
+    if (!interviewer) {
+      return;
+    }
+
     transition(SAVING, true)
 
     props.bookInterview(props.id, interview)
@@ -50,18 +55,6 @@ export default function Appointment(props) {
       transition(ERROR_DELETE, true)
     })
   }
-
-  //----------------------------------------------------------------
-
-  // function editInt(name, interviewer) {
-  //   const interview = {
-  //     student: name,
-  //     interviewer
-  //   };
-  //   props.editInterview(props.id, interview).then(() => {
-      
-  //   })
-  // }
 
   //----------------------------------------------------------------
    
