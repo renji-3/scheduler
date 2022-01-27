@@ -1,7 +1,7 @@
 # Interview Scheduler
 
 ## Summary
-This project is a single page web app that demonstrates the ability to create and manage appointments for interviews
+This project is a single page web app that demonstrates the ability to create and manage appointments for interviews. It includes the ability to create, cancel, and edit interview information such as interviewer choice and interviewee name
 
 ## Setup
 
